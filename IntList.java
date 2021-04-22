@@ -1,4 +1,4 @@
-// 2.1
+// 2.1 IntList Prototype
 public class IntList {
     // properties
     public int first;
@@ -68,6 +68,25 @@ public class IntList {
       return res;
     }
     // recur
+    public static IntList recurIncrList(IntList L, int x) {
+      // check nullerr
+      // stupid: only 1 if() is necessary
+      if (L == null){
+        System.out.println("Original List is null");
+        return null;
+      }
+      else {
+        IntList tmpL = new IntList(L.first + x, null);
+        // recur
+        if (L.rest == null) {
+          return tmpL;
+        }
+        else {
+          tmpL.rest = recurIncrList(L.rest, x);
+          return tmpL;
+        }
+      }
+    }
 
 
     /*
@@ -76,25 +95,56 @@ public class IntList {
     (2) increase by x
     (3) no "new" to save memory
     */
+    // recur //
+    public static IntList recurDincrList(IntList L, int x) {
+      // check nullerr (skip)
+      L.first = L.first + x;
+      // recur
+      if (L.rest == null) {
+        return L;
+      }
+      else {
+        L.rest = recurDincrList(L.rest, x);
+        return L;
+      }
+    }
+    // iter //
+    public static IntList iterDincrList(IntList L, int x) {
+      IntList tmpAddr = L;
+      while (tmpAddr != null) {
+        tmpAddr.first += x;
+        tmpAddr = tmpAddr.rest;
+      }
+      return L;
+    }
 
 
-    // main //
+    /* main */
     public static void main(String[] args) {
       // set ground
       IntList atest = new IntList(5, null);
       atest.rest = new IntList(10, null);
       atest.rest.rest = new IntList(15, null);
-      // test recur get() //
+      /* test recur get() */
       //int ares = atest.recurGet(1);
       //System.out.println(ares);
-      // test iter get() //
+      /* test iter get() */
       //int bres = atest.iterGet(1);
       //System.out.println(bres);
-      // test incrList() //
-      IntList incrtest = iterIncrList(atest, 2);
+      /* test iterIncrList() */
+      //IntList iterIncrtest = IntList.iterIncrList(atest, 2);
+      //System.out.println(atest.recurGet(1));
+      //System.out.println(iterIncrtest.recurGet(1));
+      /* test recurIncrList() */
+      //IntList recurIncrtest = IntList.recurIncrList(atest, 2);
+      //System.out.println(recurIncrtest.recurGet(1));
+      /* test recurDincrList */
+      IntList recurDincrL = IntList.recurDincrList(atest, 2);
       System.out.println(atest.recurGet(1));
-      System.out.println(incrtest.recurGet(1));
-
+      System.out.println(recurDincrL.recurGet(1));
+      /* test iterDincrList */
+      IntList iterDincrL = IntList.iterDincrList(atest, 2);
+      System.out.println(iterDincrL.recurGet(1));
     }
 
 }

@@ -1,13 +1,13 @@
 // 2.3: DLList
 // circular sentinel + double linked
 
-public class DLList {
+public class DLList<laoliu> {
   // base class
   public class IntNode {
       public IntNode prev;
-      public int item;
+      public laoliu item;
       public IntNode next;
-      public IntNode(int i, IntNode n, IntNode p) {
+      public IntNode(laoliu i, IntNode n, IntNode p) {
           item = i;
           next = n;
           prev = p;
@@ -18,8 +18,8 @@ public class DLList {
   private IntNode sentinel;
   /* constructor */
   // with value
-  public DLList(int x) {
-    sentinel = new IntNode(-1111, null, null);
+  public DLList(laoliu x) {
+    sentinel = new IntNode(null, null, null);
     IntNode tmp = new IntNode(x, sentinel, sentinel);
     sentinel.prev = tmp;
     sentinel.next = tmp;
@@ -28,7 +28,7 @@ public class DLList {
   // empty
   public DLList() {
     size = 0;
-    sentinel = new IntNode(-1111, null, null);
+    sentinel = new IntNode(null, null, null);
     sentinel.prev = sentinel;
     sentinel.next = sentinel;
   }
@@ -39,11 +39,11 @@ public class DLList {
 
   /** Adds an item to the end of the list. */
   // getting
-  public int getLast() {
+  public laoliu getLast() {
     return sentinel.prev.item;
   }
   // adding
-  public void addLast(int x) {
+  public void addLast(laoliu x) {
     sentinel.prev.next = new IntNode(x, sentinel, sentinel.prev);
     sentinel.prev = sentinel.prev.next;
     size += 1;
@@ -69,24 +69,24 @@ public class DLList {
     /*
     create base case
     */
-    DLList bench1 = new DLList(5); // normal
-    DLList bench0 = new DLList(); // empty
+    DLList<String> bench1 = new DLList<>("one"); // normal
+    DLList<String> bench0 = new DLList<>(); // empty
     // test: size(); get/addLast(); removeLast();
     System.out.println(bench1.size()); // 1
     System.out.println(bench0.size()); // 0
 
-    System.out.println(bench0.getLast()); // -1111
-    bench0.addLast(10);
+    System.out.println(bench0.getLast()); // null
+    bench0.addLast("two");
     System.out.println(bench0.size()); // 1
-    System.out.println(bench0.getLast()); // 10
+    System.out.println(bench0.getLast()); // two
 
-    bench0.addLast(15);
+    bench0.addLast("three");
     System.out.println(bench0.size()); // 2
-    System.out.println(bench0.getLast()); // 15
+    System.out.println(bench0.getLast()); // three
 
     bench0.removeLast();
     System.out.println(bench0.size()); // 1
-    System.out.println(bench0.getLast()); // 10
+    System.out.println(bench0.getLast()); // two
   }
 
 }

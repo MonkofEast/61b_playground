@@ -13,17 +13,21 @@ public class SLList {
   /* properties */
   private int size;
   private IntNode sentinel;
+  private IntNode last;
   /* constructor */
   // with value
   public SLList(int x) {
     size = 1;
     IntNode tmp = new IntNode(x, null);
     sentinel = new IntNode(-1111, tmp);
+    last = tmp;
   }
   // empty
   public SLList() {
     size = 0;
-    sentinel = new IntNode(-1111, null);
+    IntNode tmp = new IntNode(-1111, null);
+    sentinel = tmp;
+    last = tmp;
   }
   /* Add an "item"(plus "next" of course) to the "first" property */
   // backward adding
@@ -38,11 +42,7 @@ public class SLList {
   /** Adds an item to the end of the list. */
   // getting
   public int getLast() {
-    IntNode tmpNode = sentinel;
-    while(tmpNode.next != null) {
-      tmpNode = tmpNode.next;
-    }
-    return tmpNode.item;
+    return last.item;
   }
   // adding
   public void addLast(int x) {
@@ -52,43 +52,12 @@ public class SLList {
     }
     tmpNode.next = new IntNode(x, null);
     size += 1;
+    last = last.next;
   }
   /** get size (caching) */
   public int size() {
     return size;
   }
-
-  /** Returns the number of items in the list. */
-  // overload
-  // recursion //
-  // useless, just practice
-  // 1. the private helper
-  /*
-  private static int recurSize(IntNode N) {
-    if (N.next == null) {
-      return 1;
-    }
-    else {
-      return (1 + recurSize(N.next));
-    }
-  }
-  // 2. the public interface
-  public int recurSize() {
-    return recurSize(first);
-  }
-  */
-  // iter //
-  /*
-  public int iterSize() {
-    int res = 0;
-    IntNode tmpNode = sentinel;
-    while(tmpNode.next != null) {
-      res += 1;
-      tmpNode = tmpNode.next;
-    }
-    return res;
-  }
-  */
 
   /** main */
   public static void main(String[] args) {
@@ -102,12 +71,6 @@ public class SLList {
     */
     //bench.addLast(10);
     //System.out.println(bench.getLast());
-    /*
-    test: size()
-    */
-    //bench.addFirst(15);
-    //System.out.println(bench.recurSize());
-    //System.out.println(bench.iterSize());
     /*
     test:
     size(property), empty constructor, addLast(empty)

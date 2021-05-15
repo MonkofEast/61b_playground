@@ -3,6 +3,7 @@
 
 public class Dog {
     public int weightInPounds;
+    private int size;
 
     public Dog(int w) {
         weightInPounds = w;
